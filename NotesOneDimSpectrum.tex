@@ -1,0 +1,178 @@
+\documentclass[12pt]{article}
+
+%% WRY has commented out some unused packages %%
+%% If needed, activate these by uncommenting
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+%\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+\geometry{a4paper,left=3.cm,right=3.cm,top=3.5cm,bottom=2.5cm}
+%\geometry{landscape}                % Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+
+\usepackage{natbib}
+\bibliographystyle{chicago}
+
+%for figures
+%\usepackage{graphicx}
+
+\usepackage{color}
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+%% for graphics this one is also OK:
+\usepackage{epsfig}
+
+%% AMS mathsymbols are enabled with
+\usepackage{amssymb,amsmath}
+
+%% more options in enumerate
+\usepackage{enumerate}
+%\usepackage{enumitem}
+
+%% insert code
+\usepackage{listings}
+
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+
+\usepackage{hyperref}
+
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+
+
+%\newcommand{\backslash}{\char`\\}
+\newcommand{\rarr}{ $ \rightarrow $ }
+
+\usepackage{soul}
+\usepackage[most]{tcolorbox}
+
+\title{Notes on 1D spectra of horizontally isotropic and homogeneous flow}
+\date{}
+\author{Cesar B Rocha (crocha@whoi.edu)}
+
+\newtcbtheorem{Summary}{\bfseries Summary}{enhanced,drop shadow={black!50!white},
+  coltitle=black,
+  top=0.3in,
+  attach boxed title to top left=
+  {xshift=1.5em,yshift=-\tcboxedtitleheight/2},
+  boxed title style={size=small,colback=white}
+}{summary}
+
+\newcommand{\U}{\mathcal{U}}
+
+%% make esint definition in line with amsmath
+\usepackage{amsmath}
+\usepackage{esint}
+\makeatletter
+\@for\next:={int,iint,iiint,iiiint,dotsint,oint,oiint,sqint,sqiint,
+  ointctrclockwise,ointclockwise,varointclockwise,varointctrclockwise,
+  fint,varoiint,landupint,landdownint}\do{%
+    \expandafter\edef\csname\next\endcsname{%
+      \noexpand\DOTSI
+      \expandafter\noexpand\csname\next op\endcsname
+      \noexpand\ilimits@
+    }%
+  }
+\makeatother
+
+
+
+\begin{document}
+
+\maketitle
+\vspace{-1cm}
+
+\input{symbols.tex}
+%\thispagestyle{empty}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\iInt}{\iint\limits}
+\newcommand{\Int}{\int\limits}
+
+\vspace{1cm}
+
+We here detail the relationship between across-track (transverse) and along-track (longitudinal) one-dimensional spectra of  horizontally isotropic and homogeneous flow. The calculation resembles the derivation of one-dimensional spectra of homogeneous and isotropic three-dimensional turbulence (e.g., Batchelor, 1941).
+
+\subsection*{Rotational flow}
+We begin with horizontally non-divergent, rotational flow. The velocity is given by the streamfunction $\psi$ through
+\beq 
+\label{uvpsi}
+(u_r,v_r) = (-\psi_y,\psi_x)\per
+\eeq
+We call it rotational because it carries all the vertical vorticity of the flow. Its kinetic energy is given by 
+\beq 
+\label{kepsi}
+\tfrac{1}{2}\la u_r^2 + v_r^2 \ra = \half \! \iInt_{-\infty}^{+\infty} k_h^2\hat{C}_\psi\, \dd k \dd l\com
+\eeq
+where angle brackets $\la \ra$ represent an average in physical domain, $k_h^2 \defn k^2 + l^2$ is the isotropic horizontal wavenumber and $\hat{C}_\psi$ is the spectrum of the streamfunction variance:
+\beq \label{psivar}
+	\la \psi^2 \ra = \iInt_{-\infty}^{+\infty} \hat{C}_\psi \dd k \dd l\per
+\eeq
+Horizontal homogeneneity implies that the statistics of $\psi$, such as the variance in \eqref{psivar}, is independent of space and time. Horizontal isotropy implies that the statistics of $\psi$ are independent of direction, so that the two-dimensional streamfunction spectrum is only a function of the wavenumber magnitude,
+\beq 
+\hat{C}_\psi (k,l) = \hat{C}_\psi (k_h)\per
+\eeq
+Isotropic $\psi$ also implies that the two-dimensional kinetic energy spectrum, $k_h^2 \hat{C}_\psi$, is isotropic. The velocity components, however, aren't isotropic:
+\begin{align}\label{uvar}
+	\hat{C}_{u_r} (k,l) &= l^2  \hat{C}_\psi \com\\
+	\label{vvar}
+	\hat{C}_{v_r} (k,l) &= k^2  \hat{C}_\psi \per
+\end{align}
+
+Finally, because $\psi$ is isotropic, it is conveninent to write \eqref{kepsi} in terms of an isotropic kinetic energy spectrum. Changing variables to polar coordinates in \eqref{kepsi} yields
+\beq 
+\tfrac{1}{2}\la u_r^2 + v_r^2 \ra = \Int_{0}^{+\infty} \underbrace{\pi k_h^3 \hat{C}_\psi}_{\defn \E} \dd k_h \com
+\eeq
+where we used $\dd k \dd l = k_h \dd \theta \dd k_h$. Note that the isotropic kinetic energy spectrum $\E(k_h)$ is related to the two-dimensional streamfunction variance spectrum through  $k_h^3$---the extra $k_h$ comes from the geometric factor of the cartesian-to-polar change of variables.
+
+
+Our  goal here is to understand how the velocity variance spectra in \eqref{uvar} and \eqref{vvar} project onto a single track, because ocean observations are generally collected along a single transect. Isotropy implies that all the expressions above are valid under any rotation of the coordinate system. The most convenient rotation is to align $(x,y)$ with the along-track (longitudinal) and across-track (transverse) directions, so that $(k, l)$ are the along-track and across-track wavenumbers.
+
+Projecting the velocity variance spectra onto a one-dimensional track means integrating over all across-track wavenumbers. For the along-track velocity variance component, this yields 
+\begin{align}
+ \hat{C}_{u_r} (k) &= \Int_{-\infty}^{+\infty} l^2 \hat{C}_\psi \dd l\nonumber \\
+ \label{Cur}
+ & = \frac{2}{\pi} \Int_{|k|}^{+\infty} (k_h^2 - k^2)^{1/2} k_h^{-2}  \E (k_h)  \,\,\dd k_h\com
+\end{align}
+where we recall that $k_h^2 = k^2 + l^2$, so that $l \dd l = k_h \dd k_h$. Similar change of variables yields
+\beq 
+\label{Cvr}
+ \hat{C}_{v_r} (k) =  \frac{2}{\pi} k^2 \Int_{|k|}^{+\infty} (k_h^2 - k^2)^{-1/2} k_h^{-2}  \E (k_h) \,\,\dd k_h\per
+\eeq
+By inspection, we find that the across-track $\hat{C}_{v_r}$ and along-track $\hat{C}_{u_r}$ velocity variance spectra are related through
+\beq \label{CuCv}
+\boxed{\hat{C}_{v_r} (k) = - k \frac{\dd}{\dd k} \hat{C}_{u_r} (k)}\per
+\eeq
+This relationship was originally derived in Charney's celebrated paper on geostrophic turbulence. Charney was likely influenced by analogous expressions for 3D isotropic and homogeneous spectra of turbulence derived by Batchelor. Callies \& Ferrari (2013) and Rocha et al. (2016) use \eqref{CuCv} to tease out dynamics from one-dimensional velocity data.
+
+If the isotropic kinetic energy spectrum follows a power law, $\E = A k_h^{-n}$, as predicted by Charney's theory, then the along-track velocity variance spectrum is given by 
+\begin{align}
+ \hat{C}_{u_r} (k) = \frac{2}{\pi} A \Int_{|k|}^{+\infty} (k_h^2 - k^2)^{1/2} k_h^{-(n +2)}  \,\,\dd k_h\per
+\end{align}
+Changing variables with $k_h = k \sec \theta$, yields 
+\beq \label{Cupower}
+ \hat{C}_{u_r} (k) =  \frac{2}{\pi} A\, k^{-n} \underbrace{\Int_{0}^{\pi/2} (\sin \theta)^2 (\cos\theta)^{n-1}\dd \theta}_{\text{a constant}}\per 
+\eeq
+Thus if $\E$ follows a power law $k_h^{-n}$, then both $\hat{C}_{u_r}$ and $\hat{C}_{v_r}$ follow the \text{same} power law and are related through the scaling exponent $n$:
+\beq 
+\boxed{\hat{C}_{v_r} = n \hat{C}_{u_r}} \per 
+\eeq
+
+The definite integral on the right of \eqref{Cupower} is a constant. For some integer values of $n$, we can calculate this constant in closed-form. For example, if $n=3$, then
+\beq 
+ \hat{C}_{u_r} = \frac{\pi^2 A}{32}\, k^{-3}\qquad \text{and} \qquad 
+ \hat{C}_{v_r} = 3\frac{\pi^2 A}{32}\, k^{-3}\per
+\eeq
+
+\subsection*{Divergent flow}
+We can repeat the calculations for horizontally divergent, irrotational flow. In this case the velocity is given by the potential $\phi$ through
+\beq 
+\label{uvpsi}
+(u_d,v_d) = (\phi_x,\phi_y)\per
+\eeq
+For horizontally isotropic and homogeneous $\phi$, repeating the derivation above yields
+\beq \label{CuCv2}
+\boxed{\hat{C}_{u_d} (k) = - k \frac{\dd}{\dd k} \hat{C}_{v_d} (k)}\per
+\eeq
+The relationship between along-track and across-track velocity variance spectra of divergent flows is opposite to the relationship for rotational flows.
+
+\end{document}
